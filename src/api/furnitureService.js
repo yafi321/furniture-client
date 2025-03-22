@@ -1,4 +1,5 @@
 import axios from "axios"
+
 let baseUrl = "https://node-project-q37j.onrender.com/api/furniture";
 
 export const getAllfurniture = (page) =>{

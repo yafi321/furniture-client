@@ -33,8 +33,6 @@ const cartSlice = createSlice({
             state.totalSum -= action.payload.price*(action.payload.qty);    
           
         },
-        
-
     }
 })
 

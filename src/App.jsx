@@ -11,12 +11,15 @@ import CheckOut from './pages/CheckOut'
 import OneFurniture from './pages/OneFurniture'
 import Cart from './pages/Cart'
 import AddFurniture from './pages/AddFurniture'
+import { ThemeProvider } from '@mui/material'
+import theme from './theme.jsx'
 
 
 function App() {
 
   return (
     <>
+     <ThemeProvider theme={theme}>
     <NavBar></NavBar>
     {/* <FurnitureList/> */}
     {/* <OneFurniture/> */}
@@ -32,6 +35,7 @@ function App() {
       <Route path="*" element={<FurnitureList/>}/>
 
     </Routes>
+    </ThemeProvider>
     </>
   )
 }

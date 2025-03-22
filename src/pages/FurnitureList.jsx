@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllfurniture, getTotalPage } from "../api/furnitureService.js"
-import { useDispatch } from "react-redux"
-import { addToCart } from "../featurs/cartSlice.js";
+// import { useDispatch } from "react-redux"
+// import { addToCart } from "../featurs/cartSlice.js";
 import OneFurniture from "./OneFurniture.jsx";
 import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
@@ -14,8 +14,8 @@ const FurnitureList = () => {
     let [arr, setArr] = useState([]);
     let [pageCnt, setPageCnt] = useState(1);
     let [currentPage, setCurrentPage] = useState(1);
-    let [loading, setLoading] = useState(false);
-    let dispatch = useDispatch();
+    // let [loading, setLoading] = useState(false);
+    // let dispatch = useDispatch();
 
     useEffect(() => {
         bringPagesFromServer()
@@ -30,6 +30,7 @@ const FurnitureList = () => {
         getAllfurniture(page)
             .then(res => {
                 setArr(res.data);
+                // למחוק הדפסות לקונסול
                 console.log(res.data);
             })
             .catch(err => {
@@ -42,6 +43,7 @@ const FurnitureList = () => {
         getTotalPage()
             .then(res => {
                 setPageCnt(Number(res.data.totalPages));
+                // למחוק הדפסות לקונסול
                 console.log(res.data);
             })
             .catch(err => {
@@ -50,15 +52,16 @@ const FurnitureList = () => {
             })
     }
     const handlePageChange = (event, value) => {
+        // למחוק הדפסות לקונסול
         console.log("valur: "+value)
         setCurrentPage(value);
 
         // כאן תוכל להוסיף לוגיקה נוספת כמו טעינת נתונים לעמוד החדש
     };
 
-    const handleReload = () => {
-        setLoading(true); // מפעיל את ה-useEffect מחדש
-    };
+    // const handleReload = () => {
+    //     setLoading(true); // מפעיל את ה-useEffect מחדש
+    // };
 
     // let buttons = [];
     // for (let i = 1; i < pageCnt + 1; i++) {

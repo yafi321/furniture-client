@@ -4,7 +4,7 @@ import { Drawer, IconButton, Badge, List, ListItem, ListItemText, Button, Box, T
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { addToCart, reduceProduct,deleteFromCart } from "../featurs/cartSlice";
+import { addToCart, reduceProduct, deleteFromCart } from "../featurs/cartSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const MiniCart = () => {
@@ -26,7 +26,7 @@ const MiniCart = () => {
             {/* אייקון עגלה עם מספר פריטים */}
             <IconButton
                 onMouseEnter={() => setOpenDrawer(true)}
-                sx={{ position: "fixed", top: 20, right: 20, backgroundColor: "#fff" }}
+                sx={{ position: "fixed", top: 20, left: 10, backgroundColor: "#fff" }}
             >
                 <Badge badgeContent={cartItems.length} color="error">
                     <ShoppingCartIcon fontSize="large" />
@@ -35,13 +35,15 @@ const MiniCart = () => {
 
             {/* סל קניות מוקטן */}
             <Drawer
-                anchor="right"
+                anchor="left"
                 open={openDrawer}
-                onClose={() => setOpenDrawer(false)}
-                onMouseLeave={() => setOpenDrawer(false)}
-                // sx={{zIndex:100}}
+                // onClose={() => setOpenDrawer(false)}
+                // onMouseLeave={() => setOpenDrawer(false)}
+            // sx={{zIndex:100}}
             >
-                <Box sx={{ width: 300, p: 2 }}>
+                <Box sx={{ width: 300,height:"200vh", p: 2 }}
+                open={openDrawer}
+                onMouseLeave={() => setOpenDrawer(false)}>
                     <Typography variant="h6" textAlign="right" gutterBottom>
                         העגלה שלי
                     </Typography>
@@ -59,39 +61,39 @@ const MiniCart = () => {
                                                 secondary={`₪${item.price.toFixed(2)}`}
                                                 sx={{ ml: 1, textAlign: "right" }}
                                             />
-                                            
+
                                         </Box>
 
                                         {/* כמות ועדכון מוצרים */}
                                         <Box display="flex" alignItems="center">
-  <IconButton 
-    size="small" 
-    onClick={() => dispatch(deleteFromCart(item))} 
-    color="error"
-  >
-    <DeleteIcon />
-  </IconButton>
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => dispatch(deleteFromCart(item))}
+                                                color="error"
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
 
-  <Box display="flex" alignItems="center">
-    <IconButton
-      size="small"
-      onClick={() => {
-        if (item.qty > 1) {
-          dispatch(reduceProduct(item));
-        }
-      }}
-      disabled={item.qty === 1}
-    >
-      <RemoveIcon />
-    </IconButton>
+                                            <Box display="flex" alignItems="center">
+                                                <IconButton
+                                                    size="small"
+                                                    onClick={() => {
+                                                        if (item.qty > 1) {
+                                                            dispatch(reduceProduct(item));
+                                                        }
+                                                    }}
+                                                    disabled={item.qty === 1}
+                                                >
+                                                    <RemoveIcon />
+                                                </IconButton>
 
-    <Typography>{item.qty}</Typography>
+                                                <Typography>{item.qty}</Typography>
 
-    <IconButton size="small" onClick={() => dispatch(addToCart(item))}>
-      <AddIcon />
-    </IconButton>
-  </Box>
-</Box>
+                                                <IconButton size="small" onClick={() => dispatch(addToCart(item))}>
+                                                    <AddIcon />
+                                                </IconButton>
+                                            </Box>
+                                        </Box>
 
                                         {/* סכום ביניים */}
                                         <Typography variant="body2" color="textSecondary" textAlign="right">

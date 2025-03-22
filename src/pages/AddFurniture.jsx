@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, Box, InputAdornment, Typography, Chip } from "@mui/material";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { addFurniture } from "../api/furnitureService.js"
 import { useNavigate } from "react-router-dom";
 
@@ -31,17 +31,13 @@ let navigate = useNavigate();
   };
 
   const onSubmit = async (data) => {
-    const productData = {
-      ...data, colors
-      
-    }
+    const productData = {...data, colors}
     try {
-
+      // למחוק הדפסות לקונסול
       console.log(productData)
       let a =await addFurniture(productData)
       alert("המוצר נוסף בהצלחה")
       navigate("/list")
-
     }
     catch (err) {
       console.log(err)
@@ -50,7 +46,7 @@ let navigate = useNavigate();
   }
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ padding: 3, maxWidth: 600, margin: "0 auto" }}>
+    <Box component="form" dir="rtl" onSubmit={handleSubmit(onSubmit)} sx={{ padding: 3, maxWidth: 600, margin: "0 auto" }}>
       <Typography variant="h4" gutterBottom>הוסף מוצר</Typography>
 
       <Grid container spacing={3}>
@@ -97,6 +93,7 @@ let navigate = useNavigate();
         </Grid>
 
         {/* העלאת תמונה */}
+        {/* לעדכן פה שיהיה באמת העלאת תמונה  */}
         {/* <Grid item xs={12}>
           <input type="file" accept="image/*" />
         </Grid> */}

@@ -36,11 +36,14 @@ const UpdateFurniture = ({ furniture, onClose }) => {
     };
 
     const onSubmit = async (data) => {
-        const productData = { ...data, colors ,_id: furniture._id};
+        const productData = { ...data, colors, _id: furniture._id };
         try {
+            // למחוק הדפסות לקונסול
             console.log(productData);
             let response = await updateFurniture(productData);
+            // למחוק הדפסות לקונסול
             console.log(response);
+            // להוסיף פה הודעה שהמוצר עודכן (עדיף לא ע"י אלרט אלא משהו יותר יפה)
             onClose();
         } catch (err) {
             console.log(err);
@@ -93,6 +96,7 @@ const UpdateFurniture = ({ furniture, onClose }) => {
                 </Grid>
 
                 <Grid item xs={12}>
+                    {/* כאן צריך לשנות להוספת תמונה מתוך המחשב + הצגתה בטופס (אחרי שנוסיף תיקיה בשרת) */}
                     <TextField
                         fullWidth
                         label="תמונה (URL)"

@@ -3,24 +3,27 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "../api/userService.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {userIn} from "../featurs/userSlice.js";
+import { userIn } from "../featurs/userSlice.js";
 
 const LoginUser = () => {
     let { register, handleSubmit, formState: { errors } } = useForm();
-    let disp=useDispatch();
-    let navigate=useNavigate();
+    let disp = useDispatch();
+    let navigate = useNavigate();
     const save = (data) => {
         loginUser(data)
-        .then(res=>{
-         disp(userIn(res.data.user))
-        navigate("/list")
-        }).catch(err=>{
-            console.log(err)
-            navigate("/signup")
-            alert("לא נמצא משתמש, אנא הרשם")
-        })
+            .then(res => {
+                //redux-מעדכן את המשתמש הנוכחי ב 
+                disp(userIn(res.data.user))
+                navigate("/list")
+            }).catch(err => {
+                console.log(err)
+                navigate("/signup")
+                alert("לא נמצא משתמש, אנא הרשם")
+            })
     }
-    return (<form noValidate onSubmit={handleSubmit(save)} style={{ margin: "50px" }}>
+    return (
+        // לעדכן פה את כל העיצוב של הטוספ הזה
+    <form noValidate onSubmit={handleSubmit(save)} style={{ margin: "50px" }}>
         <TextField id="outlined-basic" label="שם משתמש" variant="outlined"
             {...register("userName", {
                 required: { value: true, message: "שם משתמש חובה" },

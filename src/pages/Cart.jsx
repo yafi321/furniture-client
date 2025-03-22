@@ -19,12 +19,13 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { addToCart ,deleteFromCart,reduceProduct} from "../featurs/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   let currentCart = useSelector((state) => state.cart.arr);
   let totalPrice = useSelector((state) => state.cart.totalSum);
   let dispatch = useDispatch();
-
+  let navig=useNavigate();
 
   return (
     <Box display="flex" flexDirection="row-reverse" justifyContent="space-between" p={3}>
@@ -40,7 +41,7 @@ const Cart = () => {
             <Table sx={{direction: "rtl"}}>
               <TableHead>
                 <TableRow >
-                  <TableCell align="right">מוצר</TableCell>
+                  <TableCell align="center">מוצר</TableCell>
                   <TableCell align="center">מחיר</TableCell>
                   <TableCell align="center">כמות</TableCell>
                   <TableCell align="center">סכום ביניים</TableCell>
@@ -51,10 +52,10 @@ const Cart = () => {
                 {currentCart.map((item) => (
                   <TableRow key={item._id}>
                     {/* עמודת מוצר (ימין ביותר) */}
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Box display="flex" flexDirection="row" alignItems="center">
                         <img src={"images/"+item.url} alt={item.name} width={50} height={50} />
-                        <Box ml={1} textAlign="right">
+                        <Box ml={1} textAlign="center">
                           <Typography variant="body1" fontWeight="bold">
                             {item.name}
                           </Typography>
@@ -127,6 +128,7 @@ const Cart = () => {
               color="error"
               fullWidth
               sx={{ mt: 2, fontSize: "1rem", fontWeight: "bold" }}
+              onClick={()=>navig("/checkout")}
             >
               מעבר לתשלום
             </Button>

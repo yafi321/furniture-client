@@ -4,6 +4,7 @@ import { addUser } from "../api/userService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {userIn} from "../featurs/userSlice.js"
+
 const SignUp = () => {
     let { register, handleSubmit, formState: { errors } } = useForm();
     let disp=useDispatch();
@@ -18,7 +19,9 @@ const SignUp = () => {
             alert("שגיאה בהרשמה")
         })
     }
-    return (<form noValidate onSubmit={handleSubmit(save)} style={{ margin: "50px" }}>
+
+    return (
+    <form noValidate onSubmit={handleSubmit(save)} style={{ margin: "50px" }}>
         <TextField id="outlined-basic" label="שם משתמש" variant="outlined"
             {...register("userName", {
                 required: { value: true, message: "שם משתמש חובה" },
