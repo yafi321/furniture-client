@@ -10,8 +10,12 @@ export const getTotalPage = ()=>{
     return axios.get(baseUrl+"/totalPages?limit=12");
 }
 
-export const addFurniture = (furniture)=>{
-    return axios.post(baseUrl,furniture);
+export const addFurniture = (furniture,token)=>{
+    return axios.post(baseUrl,furniture,{
+        headers: {
+            authorization: token
+        }
+});
 }
 
 export const deleteFurniture = (furniture)=>{

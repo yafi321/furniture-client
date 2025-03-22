@@ -4,12 +4,14 @@ import { TextField, Button, Grid, Box, InputAdornment, Typography, Chip } from "
 // import { useDispatch } from "react-redux";
 import { addFurniture } from "../api/furnitureService.js"
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AddFurniture = () => {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [colors, setColors] = useState([]);
   const [newColor, setNewColor] = useState(""); // עבור קלט הצבע החדש
-
+ 
+  let currentUser = useSelector(state => state.user.currentUser)
 let navigate = useNavigate();
 
   const handleColorChange = (e) => {
@@ -35,9 +37,16 @@ let navigate = useNavigate();
     try {
       // למחוק הדפסות לקונסול
       console.log(productData)
-      let a =await addFurniture(productData)
-      alert("המוצר נוסף בהצלחה")
-      navigate("/list")
+      let a =await addFurniture(productData,currentUser?.token).then(
+        res => {
+          alert("המוצר נוסף בהצלחה")
+          navigate("/list")
+        }
+    ).catch(err => {
+        alert("שגיאה בהוספת מוצר" + err.response?.data?.message)
+        console.log(err);
+    })
+     
     }
     catch (err) {
       console.log(err)

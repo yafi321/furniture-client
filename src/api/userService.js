@@ -14,6 +14,6 @@ export const addUser = (user)=>{
     return axios.post(baseUrl+"/register",user);
 }
 
-export const loginUser =(user)=>{
-    return axios.post(baseUrl+"/login",user)
+export const loginUser =(userName, password)=>{
+    return axios.post(baseUrl+"/login",{userName,password})
 }
