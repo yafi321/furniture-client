@@ -1,51 +1,85 @@
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 import { useForm } from "react-hook-form";
 import { addUser } from "../api/userService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {userIn} from "../featurs/userSlice.js"
+import { userIn } from "../featurs/userSlice.js";
 
 const SignUp = () => {
-    let { register, handleSubmit, formState: { errors } } = useForm();
-    let disp=useDispatch();
-    let navigate=useNavigate();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const save = (data) => {
         addUser(data)
-        .then(res=>{
-         disp(userIn(res.data))
-        navigate("/list")
-        }).catch(err=>{
-            console.log(err)
-            alert("שגיאה בהרשמה")
-        })
-    }
+            .then(res => {
+                dispatch(userIn(res.data));
+                navigate("/list");
+            })
+            .catch(err => {
+                console.log(err);
+                alert("שגיאה בהרשמה");
+            });
+    };
 
     return (
-    <form noValidate onSubmit={handleSubmit(save)} style={{ margin: "50px" }}>
-        <TextField id="outlined-basic" label="שם משתמש" variant="outlined"
-            {...register("userName", {
-                required: { value: true, message: "שם משתמש חובה" },
-                minLength: { value: 2, message: "שם משתמש חייב להיות גדול מ-2" }
-            })} />
-        {errors.userName && <div className="err-inp">{errors.userName.message}</div>}
+        <Container maxWidth="sm">
+            <Paper elevation={3} sx={{ padding: "30px", marginTop: "50px", textAlign: "center" }}>
+                <Typography variant="h4" gutterBottom>
+                    הרשמה
+                </Typography>
+                <form noValidate onSubmit={handleSubmit(save)} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+                    <TextField
+                        label="שם משתמש"
+                        variant="outlined"
+                        fullWidth
+                        InputProps={{ sx: { textAlign: "right" }, inputProps: { dir: "rtl" } }}
+                        {...register("userName", {
+                            required: { value: true, message: "שם משתמש חובה" },
+                            minLength: { value: 2, message: "שם משתמש חייב להיות גדול מ-2" }
+                        })}
+                        error={!!errors.userName}
+                        helperText={errors.userName?.message}
+                    />
 
-        <TextField id="outlined-basic" label="סיסמא" variant="outlined" type="password"
-            {...register("password", {
-                required: { value: true, message: " סיסמא חובה" },
-                minLength: { value: 5, message: "סיסמא חייבת להיות גדולה מ-5" }
-            })} />
-        {errors.password && <div className="err-inp">{errors.password.message}</div>}
+                    <TextField
+                    
+                        label="סיסמא"
+                        variant="outlined"
+                        type="password"
+                        fullWidth
+                        {...register("password", {
+                            required: { value: true, message: "סיסמא חובה" },
+                            minLength: { value: 5, message: "סיסמא חייבת להיות גדולה מ-5" }
+                        })}
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                    />
 
+                    <TextField
+                        label="מייל"
+                        variant="outlined"
+                        type="email"
+                        fullWidth
+                        {...register("email", {
+                            required: { value: true, message: "מייל חובה" },
+                            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "מייל חייב להיות תקין" }
+                        })}
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                    />
 
-        <TextField id="outlined-basic" label="מייל" variant="outlined" type="email"
-            {...register("email", {
-                required: { value: true, message: " מייל חובה" },
-                pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "מייל חייב להיות תקין" }
-            })} />
-        {errors.email && <div className="err-inp">{errors.email.message}</div>}
-
-        <input type="submit" />
-    </form>);
-}
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                        הרשמה
+                    </Button>
+                </form>
+            </Paper>
+        </Container>
+    );
+};
 
 export default SignUp;

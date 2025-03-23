@@ -120,7 +120,7 @@ const Cart = () => {
               אפשרויות המשלוח יעודכנו במהלך התשלום בקופה.
             </Typography>
             <Divider sx={{ my: 2 }} />
-            <Typography variant="h6" color="error" fontWeight="bold" textAlign="right">
+            <Typography variant="h6" color="#B76E79" fontWeight="bold" textAlign="right">
               סה"כ: ₪{totalPrice}
             </Typography>
             <Button

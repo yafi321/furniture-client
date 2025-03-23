@@ -11,8 +11,9 @@ import CheckOut from './pages/CheckOut'
 import OneFurniture from './pages/OneFurniture'
 import Cart from './pages/Cart'
 import AddFurniture from './pages/AddFurniture'
-import { ThemeProvider } from '@mui/material'
+import { ThemeProvider, CssBaseline  } from '@mui/material'
 import theme from './theme.jsx'
+import ImageCarousel from './components/ImageCarousel.jsx'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
      <ThemeProvider theme={theme}>
+     {/* <CssBaseline /> */}
     <NavBar></NavBar>
     {/* <FurnitureList/> */}
     {/* <OneFurniture/> */}
@@ -32,7 +34,7 @@ function App() {
       <Route path="checkout" element={<CheckOut/>}/>
       <Route path="cart" element={<Cart/>}/>
       <Route path="addfurniture" element={<AddFurniture/>}/>
-      <Route path="*" element={<FurnitureList/>}/>
+      <Route path="*" element={<ImageCarousel/>}/>
 
     </Routes>
     </ThemeProvider>

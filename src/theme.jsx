@@ -2,6 +2,7 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+
   typography: {
     fontFamily: "'Heebo', sans-serif", // גופן שנבחר
   },
@@ -14,7 +15,7 @@ const theme = createTheme({
     },
     background: {
       default: "#F8F9FA", // רקע בהיר ונקי
-      paper: "#F8F9FA", // צבע נייר לבן
+      paper: "#FFFFFF", // צבע נייר לבן
     },
     text: {
       primary: "#343A40", // טקסט כהה
@@ -29,7 +30,7 @@ const theme = createTheme({
           backgroundColor: "#264653", // רקע כחול לכפתורים
           color: "#FFFFFF", // טקסט בכפתורים בצבע לבן
           '&:hover': {
-            backgroundColor: "#1D3A3A", // גוון כהה יותר בכפתור בעת ריחוף
+            backgroundColor: "#223F4A", // גוון כהה יותר בכפתור בעת ריחוף
           },
         },
       },

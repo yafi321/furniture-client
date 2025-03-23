@@ -21,10 +21,10 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
     useEffect(() => {
         if (cartItems.length > 0 && openedByAdd) {
             setOpenDrawer(true);
-            setIconPosition(333); // האייקון זז עם העגלה
+            setIconPosition(332); // האייקון זז עם העגלה
             const timer = setTimeout(() => {
                 setOpenDrawer(false);
-                setIconPosition(3); // האייקון חוזר למקום כשהעגלה נסגרת
+                setIconPosition(1); // האייקון חוזר למקום כשהעגלה נסגרת
                 setOpenedByAdd(false); // מנקים את הדגל
             }, 3000);
             return () => clearTimeout(timer);
@@ -47,12 +47,12 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)", // מוסיף עומק
                     borderRadius: "0px", // הופך את הכפתור לריבועי
                     padding: "10px", // התאמת גודל הפנים של הכפתור
-                    backgroundColor: "#201F1F", // צבע רקע כהה
+                    backgroundColor: "#B76E79", // צבע רקע כהה
                     color: "#fff", // צבע האייקון לבן
                 }}
                 onMouseEnter={() => {
                     setOpenDrawer(true);
-                    setIconPosition(333); // הזזת האייקון
+                    setIconPosition(332); // הזזת האייקון
                 }}
             >
                 <Badge badgeContent={cartItems.length} color="error">
@@ -67,7 +67,7 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
                     sx={{ width: 300, height: "100vh", p: 2 }}
                     onMouseLeave={() => {
                         setOpenDrawer(false);
-                        setIconPosition(3); // החזרת האייקון
+                        setIconPosition(1); // החזרת האייקון
                     }}
                 >
                     <Typography variant="h6" textAlign="right" gutterBottom>
