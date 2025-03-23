@@ -19,7 +19,7 @@ const NavBar = () => {
 
     return (
         <>
-            <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+            <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
                         החנות שלי
@@ -29,7 +29,7 @@ const NavBar = () => {
                         <Button color="inherit" component={Link} to="/list">מוצרים</Button>
                         <Button color="inherit" component={Link} to="/cart">סל הקניות</Button>
                         <Button color="inherit" component={Link} to="/checkout">סיום הזמנה</Button>
-                        <Button color="inherit" component={Link} to="/addfurniture">הוספת מוצר</Button>
+                        {currentUser?.role =="MANAGER"&& <Button color="inherit" component={Link} to="/addfurniture">הוספת מוצר</Button>}
 
                         {!currentUser && (
                             <>

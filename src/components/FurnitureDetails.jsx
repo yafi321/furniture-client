@@ -5,12 +5,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../featurs/cartSlice.js";
 
-const FurnitureDetails = ({ furniture, open, onClose }) => {
+const FurnitureDetails = ({ furniture, open, onClose, setOpenedByAdd }) => {
   const dispatch = useDispatch();
   const [imageOpen, setImageOpen] = useState(false);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(furniture));
+    dispatch(addToCart(furniture),
+  setOpenedByAdd(true));
   };
 
   return (
@@ -21,7 +22,7 @@ const FurnitureDetails = ({ furniture, open, onClose }) => {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      
+
       <DialogContent>
         <Card sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, boxShadow: 3, borderRadius: 3, p: 2 }}>
           <Grid container spacing={3} alignItems="center">
@@ -53,7 +54,7 @@ const FurnitureDetails = ({ furniture, open, onClose }) => {
                 <Typography variant="h5" color="primary" sx={{ fontWeight: "bold", mb: 2 }}>
                   ₪{furniture.price}
                 </Typography>
-                
+
                 <Button
                   variant="contained"
                   color="primary"

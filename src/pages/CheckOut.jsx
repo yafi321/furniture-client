@@ -29,9 +29,10 @@ const CheckOut = () => {
 
         const orderData = {
             address,
-            custId: user.id,
+            custId: user._id,
             products: newOrderProducts()
         };
+console.log(orderData);
 
         addOrder(orderData)
             .then(() => {

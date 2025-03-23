@@ -6,7 +6,7 @@ import {
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../featurs/cartSlice.js";
 import FurnitureDetails from "../components/FurnitureDetails.jsx";
 import UpdateFurniture from "../pages/UpdateFurniture.jsx";
@@ -16,6 +16,7 @@ const OneFurniture = ({ item, onEdit, onDelete, bringFromServer, setOpenedByAdd 
     const dispatch = useDispatch();
     const [openDetails, setOpenDetails] = useState(false);
     const [openEdit, setOpenEdit] = useState(false); // שליטה בדיאלוג העריכה
+    let user = useSelector(state => state.user.currentUser)
 
     return (
         <>
@@ -35,7 +36,9 @@ const OneFurniture = ({ item, onEdit, onDelete, bringFromServer, setOpenedByAdd 
                 </CardActionArea>
 
                 {/* פעולות בכרטיס */}
+                
                 <CardActions sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                {user?.role=="MANAGER"&&
                     <Box>
                         <IconButton color="error" onClick={() => {
                             deleteFurniture(item).then(() => {
@@ -48,7 +51,7 @@ const OneFurniture = ({ item, onEdit, onDelete, bringFromServer, setOpenedByAdd 
                         <IconButton color="warning" onClick={() => setOpenEdit(true)}>
                             <EditIcon />
                         </IconButton>
-                    </Box>
+                    </Box>}
 
                     {/* מחיר ואייקון עגלה */}
                     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -73,6 +76,7 @@ const OneFurniture = ({ item, onEdit, onDelete, bringFromServer, setOpenedByAdd 
                 furniture={item}
                 open={openDetails}
                 onClose={() => setOpenDetails(false)}
+                setOpenedByAdd={setOpenedByAdd}
             />
 
             {/* חלון עריכה */}

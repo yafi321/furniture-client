@@ -14,17 +14,17 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
     const dispatch = useDispatch();
 
     let [openDrawer, setOpenDrawer] = useState(false);
-    let [iconPosition, setIconPosition] = useState(10);
+    let [iconPosition, setIconPosition] = useState(3);
     let navig = useNavigate();
 
     // כאשר משתנה מספר הפריטים בעגלה → נפתח ל-3 שניות אם הוסיפו מוצר
     useEffect(() => {
         if (cartItems.length > 0 && openedByAdd) {
             setOpenDrawer(true);
-            setIconPosition(335); // האייקון זז עם העגלה
+            setIconPosition(333); // האייקון זז עם העגלה
             const timer = setTimeout(() => {
                 setOpenDrawer(false);
-                setIconPosition(10); // האייקון חוזר למקום כשהעגלה נסגרת
+                setIconPosition(3); // האייקון חוזר למקום כשהעגלה נסגרת
                 setOpenedByAdd(false); // מנקים את הדגל
             }, 3000);
             return () => clearTimeout(timer);
@@ -39,11 +39,11 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
                     width: 50,
                     // height:"auto",
                     position: "fixed",
-                    top: 20,
+                    top: 100,
                     left: iconPosition,
                     // backgroundColor: "#fff",
-                    transition: "left 0.3s ease-in-out",
-                    zIndex: 1500, // מציב את האייקון מעל הכל
+                     transition: "left 0.1s ease-in-out",
+                    zIndex: 1700, // מציב את האייקון מעל הכל
                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)", // מוסיף עומק
                     borderRadius: "0px", // הופך את הכפתור לריבועי
                     padding: "10px", // התאמת גודל הפנים של הכפתור
@@ -52,7 +52,7 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
                 }}
                 onMouseEnter={() => {
                     setOpenDrawer(true);
-                    setIconPosition(335); // הזזת האייקון
+                    setIconPosition(333); // הזזת האייקון
                 }}
             >
                 <Badge badgeContent={cartItems.length} color="error">
@@ -61,12 +61,13 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
             </IconButton>
 
             {/* סל קניות מוקטן */}
-            <Drawer anchor="left" open={openDrawer} >
+            <Drawer anchor="left" open={openDrawer}
+            sx={{zIndex: 1500}} >
                 <Box
                     sx={{ width: 300, height: "100vh", p: 2 }}
                     onMouseLeave={() => {
                         setOpenDrawer(false);
-                        setIconPosition(10); // החזרת האייקון
+                        setIconPosition(3); // החזרת האייקון
                     }}
                 >
                     <Typography variant="h6" textAlign="right" gutterBottom>
