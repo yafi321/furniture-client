@@ -53,11 +53,11 @@ const Cart = () => {
               <TableBody>
                 {currentCart.map((item) => (
                   <TableRow key={item._id}>
-                    <TableCell align="center">
-                      <Box display="flex" flexDirection="row" alignItems="center">
-                        <img src={"images/" + item.url} alt={item.name} width={50} height={50} />
+                    <TableCell align="center" width={200}>
+                      <Box display="flex" flexDirection="row" alignItems="center" sx={{marginRight:"40px",marginLeft:"0px"}}>
+                        <img src={"images/" + item.url} alt={item.name} width={60} height={60} />
                         <Box ml={1} textAlign="center">
-                          <Typography variant="body1" fontWeight="bold">
+                          <Typography variant="body1" fontWeight="bold" width={"100%"} sx={{marginRight:"10px" ,marginLeft:"0px"}}>
                             {item.name}
                           </Typography>
                         </Box>
@@ -115,10 +115,10 @@ const Cart = () => {
               משלוח
             </Typography>
             <Typography variant="body2" color="text.secondary" textAlign="right">
-              משלוח חינם עד הבית להזמנות מעל 300 ש"ח, אחרת בעלות של 50 ש"ח.
+              .משלוח בעלות של 50 ש"ח
             </Typography>
             <Typography variant="body2" color="primary" textAlign="right">
-              אפשרויות המשלוח יעודכנו במהלך התשלום בקופה.
+              .אפשרויות המשלוח יעודכנו במהלך התשלום בקופה
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Typography variant="h6" color="#B76E79" fontWeight="bold" textAlign="right">

@@ -78,7 +78,7 @@ const LoginUser = ({ open, handleClose }) => {
                     {errors.password && <Typography color="error">{errors.password.message}</Typography>}
 
                     <Button fullWidth variant="contained" color="primary" type="submit" sx={{ mt: 2 }}>
-                        שלח
+                        כניסה
                     </Button>
                 </form>
                 <Typography align="center" sx={{ mt: 2 }}>
