@@ -18,10 +18,18 @@ export const addFurniture = (furniture,token)=>{
 });
 }
 
-export const deleteFurniture = (furniture)=>{
-    return axios.delete(baseUrl+"/"+furniture._id)
+export const deleteFurniture = (furniture,token)=>{
+    return axios.delete(baseUrl+"/"+furniture._id,{
+        headers: {
+            authorization: token
+        }
+})
 }
 
-export const updateFurniture = (furniture)=>{
-    return axios.put(baseUrl+"/"+furniture._id, furniture)
+export const updateFurniture = (furniture,token)=>{
+    return axios.put(baseUrl+"/"+furniture._id, furniture,{
+        headers: {
+            authorization: token
+        }
+})
 }

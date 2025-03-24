@@ -12,6 +12,7 @@ const FurnitureList = () => {
     let [pageCnt, setPageCnt] = useState(1);
     let [currentPage, setCurrentPage] = useState(1);
     let [openedByAdd, setOpenedByAdd] = useState(false); // ניהול מצב פתיחת הסל
+    
 
     useEffect(() => {
         bringPagesFromServer();
@@ -25,6 +26,7 @@ const FurnitureList = () => {
         getAllfurniture(page)
             .then(res => {
                 setArr(res.data);
+                setCurrentPage(page)
             })
             .catch(err => {
                 console.log(err);

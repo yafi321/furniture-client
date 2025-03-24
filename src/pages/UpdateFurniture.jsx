@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, Box, InputAdornment, Typography, Chip } from "@mui/material";
 import { updateFurniture } from "../api/furnitureService.js";
+import {  useSelector } from "react-redux";
 
 const UpdateFurniture = ({ furniture, onClose }) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const [colors, setColors] = useState(furniture.colors || []);
     const [newColor, setNewColor] = useState("");
+    let currentUser = useSelector(state => state.user.currentUser)
 
     useEffect(() => {
         // הגדרת ערכים ראשוניים בשדות
@@ -40,7 +42,7 @@ const UpdateFurniture = ({ furniture, onClose }) => {
         try {
             // למחוק הדפסות לקונסול
             console.log(productData);
-            let response = await updateFurniture(productData);
+            let response = await updateFurniture(productData,currentUser?.token);
             // למחוק הדפסות לקונסול
             console.log(response);
             // להוסיף פה הודעה שהמוצר עודכן (עדיף לא ע"י אלרט אלא משהו יותר יפה)

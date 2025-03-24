@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, Box, InputAdornment, Typography, Chip } from "@mui/material";
-// import { useDispatch } from "react-redux";
-import { addFurniture } from "../api/furnitureService.js"
+import { addFurniture } from "../api/furnitureService.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const AddFurniture = () => {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [colors, setColors] = useState([]);
-  const [newColor, setNewColor] = useState(""); // עבור קלט הצבע החדש
- 
-  let currentUser = useSelector(state => state.user.currentUser)
-let navigate = useNavigate();
+  const [newColor, setNewColor] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  let currentUser = useSelector(state => state.user.currentUser);
+  let navigate = useNavigate();
 
   const handleColorChange = (e) => {
     setNewColor(e.target.value);
@@ -21,45 +22,46 @@ let navigate = useNavigate();
   const addColor = () => {
     if (newColor && !colors.includes(newColor)) {
       setColors([...colors, newColor]);
-      setValue("colors", [...colors, newColor]);  // עדכון המערך ב- react-hook-form
-      setNewColor("");  // איפוס הקלט
+      setValue("colors", [...colors, newColor]);
+      setNewColor("");
     }
   };
 
   const removeColor = (color) => {
     const updatedColors = colors.filter(c => c !== color);
     setColors(updatedColors);
-    setValue("colors", updatedColors); // עדכון המערך ב- react-hook-form
+    setValue("colors", updatedColors);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setPreview(URL.createObjectURL(file));
   };
 
   const onSubmit = async (data) => {
-    const productData = {...data, colors}
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("ProductioDate", data.ProductioDate);
+    formData.append("colors", JSON.stringify(colors));
+
     try {
-      // למחוק הדפסות לקונסול
-      console.log(productData)
-      let a =await addFurniture(productData,currentUser?.token).then(
-        res => {
-          alert("המוצר נוסף בהצלחה")
-          navigate("/list")
-        }
-    ).catch(err => {
-        alert("שגיאה בהוספת מוצר" + err.response?.data?.message)
-        console.log(err);
-    })
-     
+      await addFurniture(formData, currentUser?.token);
+      alert("המוצר נוסף בהצלחה");
+      navigate("/list");
+    } catch (err) {
+      alert("שגיאה בהוספת מוצר: " + err.response?.data?.message);
     }
-    catch (err) {
-      console.log(err)
-      alert("שגיאה בהוספת מוצר")
-    }
-  }
+  };
 
   return (
     <Box component="form" dir="rtl" onSubmit={handleSubmit(onSubmit)} sx={{ padding: 3, maxWidth: 600, margin: "0 auto" }}>
       <Typography variant="h4" gutterBottom>הוסף מוצר</Typography>
 
       <Grid container spacing={3}>
-        {/* שדה שם מוצר */}
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -71,7 +73,6 @@ let navigate = useNavigate();
           />
         </Grid>
 
-        {/* שדה תיאור מוצר */}
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -85,7 +86,6 @@ let navigate = useNavigate();
           />
         </Grid>
 
-        {/* שדה מחיר */}
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -95,49 +95,28 @@ let navigate = useNavigate();
             {...register("price", { required: "המחיר הוא שדה חובה", min: { value: 0.1, message: "המחיר חייב להיות גדול מ-0" } })}
             error={!!errors.price}
             helperText={errors.price ? errors.price.message : ""}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">₪</InputAdornment>,
-            }}
+            InputProps={{ startAdornment: <InputAdornment position="start">₪</InputAdornment> }}
           />
         </Grid>
 
-        {/* העלאת תמונה */}
-        {/* לעדכן פה שיהיה באמת העלאת תמונה  */}
-        {/* <Grid item xs={12}>
-          <input type="file" accept="image/*" />
-        </Grid> */}
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="url"
-            variant="outlined"
-            type="text"
-            {...register("url", { required: "המחיר הוא שדה חובה" })}
-            error={!!errors.url}
-            helperText={errors.url ? errors.url.message : ""}
-
-          />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+          {preview && <img src={preview} alt="תצוגה מקדימה" style={{ marginTop: 10, maxWidth: "100%", height: "200px" }} />}
         </Grid>
 
-
-
-        {/* שדה תאריך יצור */}
         <Grid item xs={12}>
           <TextField
             fullWidth
             label="תאריך יצור"
             variant="outlined"
             type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            InputLabelProps={{ shrink: true }}
             {...register("ProductioDate", { required: "תאריך היצור הוא שדה חובה" })}
             error={!!errors.ProductioDate}
             helperText={errors.ProductioDate ? errors.ProductioDate.message : ""}
           />
         </Grid>
 
-        {/* הוספת צבעים */}
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -150,17 +129,11 @@ let navigate = useNavigate();
           <Button variant="contained" color="primary" onClick={addColor} sx={{ marginTop: 1 }}>הוסף צבע</Button>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', marginTop: 2 }}>
             {colors.map((color, index) => (
-              <Chip
-                key={index}
-                label={color}
-                onDelete={() => removeColor(color)}
-                sx={{ margin: 0.5, backgroundColor: color }}
-              />
+              <Chip key={index} label={color} onDelete={() => removeColor(color)} sx={{ margin: 0.5, backgroundColor: color }} />
             ))}
           </Box>
         </Grid>
 
-        {/* כפתור שליחה */}
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
             הוסף מוצר

@@ -41,9 +41,9 @@ const OneFurniture = ({ item, onEdit, onDelete, bringFromServer, setOpenedByAdd 
                 {user?.role=="MANAGER"&&
                     <Box>
                         <IconButton color="error" onClick={() => {
-                            deleteFurniture(item).then(() => {
+                            deleteFurniture(item, user?.token).then(() => {
                                 alert("המוצר נמחק בהצלחה");
-                                bringFromServer(1); // לטעון מחדש את הנתונים מהשרת
+                                bringFromServer(); // לטעון מחדש את הנתונים מהשרת
                             });
                         }}>
                             <DeleteIcon />

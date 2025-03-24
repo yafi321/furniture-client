@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import LoginIcon from "@mui/icons-material/Login";
 import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userOut } from "../featurs/userSlice.js";
 import LoginUser from "../pages/LoginUser.jsx";
@@ -14,12 +14,14 @@ const NavBar = () => {
     const currentUser = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
     const [openLogin, setOpenLogin] = useState(false);
+    let navigate = useNavigate();
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                     {/* לוגו בצד שמאל */}
+                    
                     <Box sx={{ flexGrow: 1 }}>
                         <img 
                             src="public/images/furniture-logo.png" 
@@ -27,8 +29,18 @@ const NavBar = () => {
                             style={{ height: "80px" ,
                                 margin: "5px"
                             }}
+                            onClick={()=> navigate("*")}
                         />
                     </Box>
+
+                    <div style={{marginRight:"350px", fontFamily: "'Heebo', sans-serif", fontSize:"1.2rem"}}>
+                     {currentUser ? (
+                       <p> {currentUser.userName} שלום </p>
+                     ) : (
+                       <p>אינך מחובר</p>
+                     )}
+                   </div>
+                 
 
                     {/* קישורים בצד ימין */}
                     <Box>

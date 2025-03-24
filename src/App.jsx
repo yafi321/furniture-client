@@ -25,7 +25,7 @@ function App() {
     <NavBar></NavBar>
     {/* <FurnitureList/> */}
     {/* <OneFurniture/> */}
-
+<div style={{marginTop: "120px"}}>
     <Routes>
     
       <Route path="list" element={<FurnitureList/>}/>
@@ -36,7 +36,7 @@ function App() {
       <Route path="addfurniture" element={<AddFurniture/>}/>
       <Route path="*" element={<ImageCarousel/>}/>
 
-    </Routes>
+    </Routes></div>
     </ThemeProvider>
     </>
   )
