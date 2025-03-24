@@ -34,7 +34,6 @@ const NavBar = () => {
                     <Box>
                         <Button color="inherit" component={Link} to="/list">מוצרים</Button>
                         <Button color="inherit" component={Link} to="/cart">סל הקניות</Button>
-                        <Button color="inherit" component={Link} to="/checkout">סיום הזמנה</Button>
                         {currentUser?.role === "MANAGER" && (
                             <Button color="inherit" component={Link} to="/addfurniture">הוספת מוצר</Button>
                         )}

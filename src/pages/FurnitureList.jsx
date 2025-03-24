@@ -49,13 +49,13 @@ const FurnitureList = () => {
 
     return (
         <div>
-            <div>רשימת הרהיטים</div>
-            <Stack spacing={2} alignItems="center">
+            {/* <div>רשימת הרהיטים</div> */}
+            <Stack spacing={2} alignItems="center" sx={{margin: "10px"}}>
                 <Pagination
                     count={pageCnt}
                     page={currentPage}
                     onChange={handlePageChange}
-                    color="primary"
+                    color="secondary"
                 />
             </Stack>
             {/* שליחת הפונקציה ל-MiniCart ול-OneFurniture */}
@@ -69,6 +69,14 @@ const FurnitureList = () => {
                     ))}
                 </Grid>
             </Container>
+            <Stack spacing={2} alignItems="center" sx={{margin: "10px"}}>
+                <Pagination
+                    count={pageCnt}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="secondary"
+                />
+            </Stack>
         </div>
     );
 }

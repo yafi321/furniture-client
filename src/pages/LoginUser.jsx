@@ -27,6 +27,7 @@ const LoginUser = ({ open, handleClose }) => {
             .catch(err => {
                 console.log(err);
                 alert("לא נמצא משתמש, אנא הרשם");
+
             });
     };
 
@@ -81,7 +82,11 @@ const LoginUser = ({ open, handleClose }) => {
                     </Button>
                 </form>
                 <Typography align="center" sx={{ mt: 2 }}>
-                    <Button color="secondary" onClick={() => navigate("/signup")}>הרשם</Button>
+                    <Button color="#B76E79" onClick={() => {
+                        handleClose();
+                        navigate("/signup")
+                    }
+                    }>הרשם</Button>
                 </Typography>
             </DialogContent>
         </Dialog>

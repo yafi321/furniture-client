@@ -138,19 +138,7 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
 
                             {/* כפתורים בסוף */}
                             <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    fullWidth
-                                    sx={{ ml: 1 }}
-                                    onClick={() => {
-                                        // כאן ניתן להוסיף את הקוד לסיום הזמנה
-                                       navig("/checkout")
-                                    }}
-                                >
-                                    סיום הזמנה
-                                </Button>
-
+                                
                                 <Button
                                     variant="contained"
                                     color="primary"

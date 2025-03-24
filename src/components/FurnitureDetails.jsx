@@ -68,7 +68,7 @@ const FurnitureDetails = ({ furniture, open, onClose, setOpenedByAdd }) => {
                     textTransform: "none",
                     boxShadow: 2,
                     transition: "0.3s",
-                    "&:hover": { backgroundColor: "#1565c0" }
+                    "&:hover": { backgroundColor: "#223F4A" }
                   }}
                 >
                   הוספה לסל 🛒
