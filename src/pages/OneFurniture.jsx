@@ -25,7 +25,7 @@ const OneFurniture = ({ item, onEdit, onDelete, bringFromServer, setOpenedByAdd 
                     <CardMedia
                         component="img"
                         height="270"
-                        image={"images/" + item.url}
+                        image={"https://node-project-q37j.onrender.com"+item.url}
                         alt={item.name}
                     />
                     <CardContent>

@@ -49,7 +49,7 @@ const AddFurniture = () => {
     formData.append("colors", JSON.stringify(colors));
 
     try {
-      await addFurniture(formData, currentUser?.token);
+      await addFurniture({...data,file:selectedFile}, currentUser?.token);
       alert("המוצר נוסף בהצלחה");
       navigate("/list");
     } catch (err) {

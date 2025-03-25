@@ -8,6 +8,8 @@ const UpdateFurniture = ({ furniture, onClose }) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const [colors, setColors] = useState(furniture.colors || []);
     const [newColor, setNewColor] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState(null);
     let currentUser = useSelector(state => state.user.currentUser)
 
     useEffect(() => {
@@ -36,21 +38,45 @@ const UpdateFurniture = ({ furniture, onClose }) => {
         setColors(updatedColors);
         setValue("colors", updatedColors);
     };
+    
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
 
     const onSubmit = async (data) => {
-        const productData = { ...data, colors, _id: furniture._id };
-        try {
-            // למחוק הדפסות לקונסול
-            console.log(productData);
-            let response = await updateFurniture(productData,currentUser?.token);
-            // למחוק הדפסות לקונסול
-            console.log(response);
-            // להוסיף פה הודעה שהמוצר עודכן (עדיף לא ע"י אלרט אלא משהו יותר יפה)
-            onClose();
-        } catch (err) {
-            console.log(err);
-            alert("שגיאה בעדכון מוצר");
-        }
+        // const productData = { ...data, colors, _id: furniture._id };
+        // try {
+        //     // למחוק הדפסות לקונסול
+        //     console.log(productData);
+        //     let response = await updateFurniture(productData,currentUser?.token);
+        //     // למחוק הדפסות לקונסול
+        //     console.log(response);
+        //     // להוסיף פה הודעה שהמוצר עודכן (עדיף לא ע"י אלרט אלא משהו יותר יפה)
+        //     onClose();
+        // } catch (err) {
+        //     console.log(err);
+        //     alert("שגיאה בעדכון מוצר");
+        // }
+
+         const formData = new FormData();
+            formData.append("file", selectedFile);
+            formData.append("name", data.name);
+            formData.append("description", data.description);
+            formData.append("price", data.price);
+            formData.append("ProductioDate", data.ProductioDate);
+            formData.append("colors", JSON.stringify(colors));
+        
+            try {
+              await updateFurniture({...data ,file:selectedFile, _id: furniture._id}, currentUser?.token);
+              
+              onClose();
+              /*navigate("/list");*/
+              alert("המוצר התעדכן בהצלחה");
+            } catch (err) {
+              alert("שגיאה בעדכון מוצר: " + err);
+            }
     };
 
     return (
@@ -97,9 +123,9 @@ const UpdateFurniture = ({ furniture, onClose }) => {
                     />
                 </Grid>
 
-                <Grid item xs={12}>
-                    {/* כאן צריך לשנות להוספת תמונה מתוך המחשב + הצגתה בטופס (אחרי שנוסיף תיקיה בשרת) */}
+                {/* <Grid item xs={12}>
                     <TextField
+                    type="file"
                         fullWidth
                         label="תמונה (URL)"
                         variant="outlined"
@@ -107,7 +133,11 @@ const UpdateFurniture = ({ furniture, onClose }) => {
                         error={!!errors.url}
                         helperText={errors.url?.message}
                     />
-                </Grid>
+                </Grid> */}
+                <Grid item xs={12}>
+                          <input type="file" accept="image/*" onChange={handleFileChange} />
+                          {preview && <img src={preview} alt="תצוגה מקדימה" style={{ marginTop: 10, maxWidth: "100%", height: "200px" }} />}
+                        </Grid>
 
                 <Grid item xs={12}>
                     <TextField
@@ -121,6 +151,7 @@ const UpdateFurniture = ({ furniture, onClose }) => {
                         helperText={errors.ProductioDate?.message}
                     />
                 </Grid>
+                
 
                 <Grid item xs={12}>
                     <TextField

@@ -1,6 +1,8 @@
 import axios from "axios"
 
 let baseUrl = "https://node-project-q37j.onrender.com/api/furniture";
+// let baseUrl = "http://localhost:3000/api/furniture"
+// 
 
 export const getAllfurniture = (page) =>{
     return axios.get(baseUrl+"?limit=12&page="+page);
@@ -11,14 +13,18 @@ export const getTotalPage = ()=>{
 }
 
 export const addFurniture = (furniture,token)=>{
+    console.log("furnition data:"+furniture)
+    console.log("token:"+token)
     return axios.post(baseUrl,furniture,{
         headers: {
-            authorization: token
+            authorization: token,
+            'Content-Type': 'multipart/form-data'
         }
 });
 }
 
 export const deleteFurniture = (furniture,token)=>{
+
     return axios.delete(baseUrl+"/"+furniture._id,{
         headers: {
             authorization: token
@@ -27,9 +33,12 @@ export const deleteFurniture = (furniture,token)=>{
 }
 
 export const updateFurniture = (furniture,token)=>{
+    console.log(furniture)
     return axios.put(baseUrl+"/"+furniture._id, furniture,{
         headers: {
-            authorization: token
+            authorization: token,
+             'Content-Type': 'multipart/form-data'
+
         }
 })
 }
