@@ -1,8 +1,6 @@
 import axios from "axios"
 
 let baseUrl = "https://node-project-q37j.onrender.com/api/furniture";
-// let baseUrl = "http://localhost:3000/api/furniture"
-// 
 
 export const getAllfurniture = (page) =>{
     return axios.get(baseUrl+"?limit=12&page="+page);

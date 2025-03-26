@@ -73,7 +73,6 @@ const UpdateFurniture = ({ furniture, onClose }) => {
               
               onClose();
               /*navigate("/list");*/
-              alert("המוצר התעדכן בהצלחה");
             } catch (err) {
               alert("שגיאה בעדכון מוצר: " + err);
             }

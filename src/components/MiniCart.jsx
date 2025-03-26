@@ -81,7 +81,7 @@ const MiniCart = ({ setOpenedByAdd, openedByAdd }) => {
                                     <ListItem key={item._id} sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                                         {/* תמונה, שם ומחיר */}
                                         <Box display="flex" alignItems="center" width="100%">
-                                            <img src={`images/${item.url}`} alt={item.name} width={60} height={60} />
+                                            <img src={`https://node-project-q37j.onrender.com${item.url}`} alt={item.name} width={60} height={60} />
                                             <ListItemText
                                                 primary={item.name}
                                                 secondary={`₪${item.price.toFixed(2)}`}

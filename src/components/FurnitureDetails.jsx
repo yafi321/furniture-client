@@ -30,7 +30,7 @@ const FurnitureDetails = ({ furniture, open, onClose, setOpenedByAdd }) => {
             <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }}>
               <CardMedia
                 component="img"
-                image={"images/" + furniture.url}
+                image={"https://node-project-q37j.onrender.com"+ furniture.url}
                 alt={furniture.name}
                 sx={{
                   width: "100%",

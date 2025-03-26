@@ -54,10 +54,10 @@ const Cart = () => {
                 {currentCart.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell align="center" width={200}>
-                      <Box display="flex" flexDirection="row" alignItems="center" sx={{marginRight:"40px",marginLeft:"0px"}}>
-                        <img src={"images/" + item.url} alt={item.name} width={60} height={60} />
+                      <Box display="flex" flexDirection="row" alignItems="center" sx={{ marginRight: "40px", marginLeft: "0px" }}>
+                        <img src={"https://node-project-q37j.onrender.com" + item.url} alt={item.name} width={60} height={60} />
                         <Box ml={1} textAlign="center">
-                          <Typography variant="body1" fontWeight="bold" width={"100%"} sx={{marginRight:"10px" ,marginLeft:"0px"}}>
+                          <Typography variant="body1" fontWeight="bold" width={"100%"} sx={{ marginRight: "10px", marginLeft: "0px" }}>
                             {item.name}
                           </Typography>
                         </Box>
@@ -129,7 +129,10 @@ const Cart = () => {
               color="error"
               fullWidth
               sx={{ mt: 2, fontSize: "1rem", fontWeight: "bold" }}
-              onClick={() => setOpenCheckout(true)}
+              onClick={() => {
+                if (totalPrice > 0)
+                  setOpenCheckout(true)
+              }}
             >
               מעבר לתשלום
             </Button>

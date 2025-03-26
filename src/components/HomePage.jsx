@@ -137,16 +137,18 @@ const HomePage = () => {
           variant="h4"
           fontWeight="bold"
           gutterBottom
+          dir="rtl"
           sx={{
             fontSize: { xs: "28px", sm: "34px", md: "40px" },
             letterSpacing: "2px",
             color: "#264653",
           }}
         >
-          ברוכים הבאים ל-TakeIt - ריהוט מעוצב לבית
+          ברוכים הבאים ל-Citadel - ריהוט מעוצב לבית
         </Typography>
         <Typography
           variant="h6"
+          dir = "rtl"
           sx={{
             maxWidth: "900px",
             margin: "auto",
@@ -176,6 +178,7 @@ const HomePage = () => {
 
       {/* המלצות לקונים */}
       <Box
+      dir = "rtl"
         sx={{
           padding: "60px 30px",
           backgroundColor: "#e9f4f3",
@@ -191,7 +194,7 @@ const HomePage = () => {
             fontSize: { xs: "22px", sm: "26px", md: "30px" },
           }}
         >
-          ?מה לקוחותינו אומרים עלינו
+          מה לקוחותינו אומרים עלינו?
         </Typography>
 
         <Grid container spacing={4} justifyContent="center">

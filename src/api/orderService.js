@@ -8,7 +8,3 @@ export const addOrder = (order)=>{
 }
 
 
-
-// export const loginUser =(user)=>{
-//     return axios.post(baseUrl+"/login",user)
-// }
