@@ -24,7 +24,7 @@ const NavBar = () => {
                     
                     <Box sx={{ flexGrow: 1 }}>
                         <img 
-                            src="public/images/furniture-logo.png" 
+                            src="/images/furniture-logo.png" 
                             alt="logo" 
                             style={{ height: "80px" ,
                                 margin: "5px"
