@@ -24,10 +24,11 @@ function App() {
     <>
      <ThemeProvider theme={theme}>
      {/* <CssBaseline /> */}
+     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
     <NavBar></NavBar>
     {/* <FurnitureList/> */}
     {/* <OneFurniture/> */}
-<div style={{marginTop: "120px", marginBottom: "120px"}}>
+<div style={{flex: 1, paddingTop: '120px', paddingBottom: '40px'}}>
     <Routes>
     
       <Route path="list" element={<FurnitureList/>}/>
@@ -39,7 +40,7 @@ function App() {
       <Route path="*" element={<HomePage/>}/>
 
     </Routes></div>
-  <Footer/>
+  <Footer/></div>
     </ThemeProvider>
     </>
   )

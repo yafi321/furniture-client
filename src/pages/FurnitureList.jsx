@@ -6,13 +6,16 @@ import Pagination from '@mui/material/Pagination';
 import { Grid, Container } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import MiniCart from "../components/MiniCart.jsx";
+import Loading from "../components/Loading.jsx";
 
 const FurnitureList = () => {
     let [arr, setArr] = useState([]);
     let [pageCnt, setPageCnt] = useState(1);
     let [currentPage, setCurrentPage] = useState(1);
     let [openedByAdd, setOpenedByAdd] = useState(false); // ניהול מצב פתיחת הסל
-    
+    const [isLoading, setIsLoading] = useState(false);
+
+
 
     useEffect(() => {
         bringPagesFromServer();
@@ -23,6 +26,7 @@ const FurnitureList = () => {
     }, [currentPage]);
 
     const bringFromServer = (page) => {
+        setIsLoading(true);
         getAllfurniture(page)
             .then(res => {
                 setArr(res.data);
@@ -31,7 +35,9 @@ const FurnitureList = () => {
             .catch(err => {
                 console.log(err);
                 alert("Product retrieval error");
-            });
+            })
+            .finally(() => setIsLoading(false));
+
     };
 
     const bringPagesFromServer = () => {
@@ -51,34 +57,43 @@ const FurnitureList = () => {
 
     return (
         <div>
-            {/* <div>רשימת הרהיטים</div> */}
-            <Stack spacing={2} alignItems="center" sx={{margin: "10px"}}>
-                <Pagination
-                    count={pageCnt}
-                    page={currentPage}
-                    onChange={handlePageChange}
-                    color="secondary"
-                />
-            </Stack>
-            {/* שליחת הפונקציה ל-MiniCart ול-OneFurniture */}
-            <MiniCart openedByAdd={openedByAdd} setOpenedByAdd={setOpenedByAdd} />
-            <Container>
-                <Grid container spacing={3}>
-                    {arr.map((item) => (
-                        <Grid item xs={12} sm={6} md={3} key={item.id}>
-                            <OneFurniture item={item} bringFromServer={bringFromServer} setOpenedByAdd={setOpenedByAdd} />
+            {isLoading ? (
+                <Stack alignItems="center" sx={{ mt: 4 }}>
+                    <Loading />
+                </Stack>
+            ) : (
+                <div>
+                    {/* <div>רשימת הרהיטים</div> */}
+                    <Stack spacing={2} alignItems="center" sx={{ margin: "10px" }}>
+                        <Pagination
+                            count={pageCnt}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            color="secondary"
+                        />
+                    </Stack>
+                    {/* שליחת הפונקציה ל-MiniCart ול-OneFurniture */}
+                    <MiniCart openedByAdd={openedByAdd} setOpenedByAdd={setOpenedByAdd} />
+                    <Container>
+                        <Grid container spacing={3}>
+                            {arr.map((item) => (
+                                <Grid item xs={12} sm={6} md={3} key={item.id}>
+                                    <OneFurniture item={item} bringFromServer={bringFromServer} setOpenedByAdd={setOpenedByAdd} />
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
-            </Container>
-            <Stack spacing={2} alignItems="center" sx={{margin: "10px"}}>
-                <Pagination
-                    count={pageCnt}
-                    page={currentPage}
-                    onChange={handlePageChange}
-                    color="secondary"
-                />
-            </Stack>
+                    </Container>
+                    <Stack spacing={2} alignItems="center" sx={{ margin: "10px" }}>
+                        <Pagination
+                            count={pageCnt}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            color="secondary"
+                        />
+                    </Stack>
+                </div>
+            )}
+
         </div>
     );
 }

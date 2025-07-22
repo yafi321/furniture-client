@@ -5,13 +5,9 @@ import { Directions } from '@mui/icons-material';
 
 const Footer = () => {
   return (
-    <footer style={{ position: 'relative',
-        bottom: 0,
-        left: 0,
-        width: '100%',
-        backgroundColor: '#1f1f1f',
-        padding: '20px 0',
-        zIndex: 1000,
+    <footer style={{ width: '100%',
+      backgroundColor: '#1f1f1f',
+      padding: '20px 0',
      }}
         >
       <Container dir = "rtl" style={{fontFamily: "'Heebo', sans-serif", }}>
